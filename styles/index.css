@@ -1,0 +1,15 @@
+.slidev-page {
+    background-color: #03101b;
+}
+
+.col-left {
+    padding-right: 20px;
+}
+
+.slidev-layout pre {
+    overflow: auto;
+}
+
+.slidev-layout ul {
+    list-style: disc;
+}
