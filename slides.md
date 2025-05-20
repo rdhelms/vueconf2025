@@ -161,6 +161,12 @@ const msg2 = inject<string>('message', 'default')
 
 </v-click>
 
+<style>
+  .twoslash-popup-code {
+    width: 400px;
+  }
+</style>
+
 ---
 layout: two-cols
 ---
@@ -418,27 +424,29 @@ Let's make a Vue plugin 🔧
 import type { App, InjectionKey, Ref } from 'vue'
 import { inject, readonly, ref } from 'vue'
 
-const messageKey = Symbol() as InjectionKey<Ref<string>>
-const updateMsgKey = Symbol() as InjectionKey<(msg: string) => void>
-
 const message = ref('hello')
 const updateMsg = (newMsg: string) => { message.value = newMsg }
 
-export const myPlugin = {
-    install (app: App) {
-        app.provide(messageKey, readonly(message))
-        app.provide(updateMsgKey, updateMsg)
-    }
-}
-export const useMessage = () => {
-  return inject(messageKey)
-}
-export const useUpdateMsg = () => {
-  return inject(updateMsgKey)
-}
+// const messageKey = Symbol() as InjectionKey<typeof message>
+// const updateMsgKey = Symbol() as InjectionKey<typeof updateMsg>
+
+// export const myPlugin = {
+//     install (app: App) {
+//         app.provide(messageKey, readonly(message))
+//         app.provide(updateMsgKey, updateMsg)
+//     }
+// }
+// export const useMessage = () => {
+//   return inject(messageKey)
+// }
+// export const useUpdateMsg = () => {
+//   return inject(updateMsgKey, () => {})
+// }
 ```
 
 ::right::
+
+<v-click>
 
 ```ts
 // main.ts
@@ -448,6 +456,10 @@ import { myPlugin } from 'my-plugin'
 
 const app = createApp(App).use(myPlugin).mount('#app')
 ```
+
+</v-click>
+
+<v-click>
 
 ```vue twoslash
 <!-- Component.vue -->
@@ -465,6 +477,8 @@ const updateMsg = useUpdateMsg()
   </div>
 </template>
 ```
+
+</v-click>
 
 <style>
   .twoslash-popup-code {
